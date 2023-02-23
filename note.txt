@@ -1,3 +1,7 @@
+#link hieu kha ro rang ve cmake
+https://medium.com/@onur.dundar1/cmake-tutorial-585dd180109b
+
+
 # buil bang gcc
 gcc -I/usr/local/include/opencv4 DisplayImage.cpp -o hw.exe
 
