@@ -1,0 +1,4 @@
+# buil bang gcc
+gcc -I/usr/local/include/opencv4 DisplayImage.cpp -o hw.exe
+
+g++ DisplayImage.cpp -o image
