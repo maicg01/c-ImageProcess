@@ -28,3 +28,5 @@ Static Library File Extensions:
 Windows: .lib
 Mac OS X: .a
 Linux: .a
+
+#tai cac thu vien Release tren git
