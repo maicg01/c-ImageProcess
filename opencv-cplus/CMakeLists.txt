@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 2.8)
+project( mainRun )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( mainRun color_detect.cpp )
+target_link_libraries( mainRun ${OpenCV_LIBS} )
+message(${OpenCV_INCLUDE_DIRS})
+message(${OpenCV_LIBS})
