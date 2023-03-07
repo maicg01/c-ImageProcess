@@ -1,0 +1,21 @@
+project(scrfd)
+
+cmake_minimum_required(VERSION 3.9.1)
+
+set(CMAKE_BUILD_TYPE release)
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fopenmp")
+set(LIBS "-lgomp -lpthread -lm -ldl -fopenmp")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ldl -std=c++14 -W -O2 ${LIBS}")
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+
+# set(ncnn_DIR ${CMAKE_SOURCE_DIR}/3rdparty/ncnn/lib/cmake/ncnn)
+# set(OpenCV_DIR ${CMAKE_SOURCE_DIR}/3rdparty/opencv/lib) #opencv me
+# find_package (ncnn REQUIRED) 
+# find_package( OpenCV REQUIRED )
+
+# set(faiss_DIR ${CMAKE_SOURCE_DIR}/3rdparty/faiss/build/cmake)
+# find_package (faiss REQUIRED) 
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/faiss/include)
+
+add_executable(scrfd vecto_faiss.cpp)
+target_link_libraries(scrfd  ${CMAKE_SOURCE_DIR}/3rdparty/faiss/lib/libfaiss.so)
