@@ -2,7 +2,6 @@
 #include <vector>
 #include <fstream>
 #include <faiss/IndexFlat.h>
-#include <faiss/IndexIVF.h>
 #include <faiss/index_io.h>
 #include <faiss/VectorTransform.h>
 
@@ -35,7 +34,35 @@ faiss::IndexFlatL2* loadIndex(const char* filename) {
 
 void searchIndex(faiss::IndexFlat* index, float* query, int nq, int k, float* distances, int64_t* labels) {
   // Tìm kiếm các vector gần nhất
-  index->search(nq, query, k, distances, labels);
+  index->search(nq, query, k, distances, labels); // nq la so luong vecto tim kiem, k la so luong vecto tra ve
+}
+
+
+// tao danh sach va luu danh sach
+void addNameToFile(string name, string filename) {
+   fstream file;
+   file.open(filename, ios::out | ios::app); // Mở tệp tin trong chế độ ghi và thêm vào cuối tệp tin
+   if (file.is_open()) {
+      file << name << endl; // Ghi tên mới vào tệp tin
+      file.close(); // Đóng tệp tin
+   }
+   else {
+      cout << "Không thể mở tệp tin để ghi." << endl;
+   }
+}
+
+vector<string> readNamesFromFile(string fileName) {
+   vector<string> names; // Khởi tạo vector để lưu trữ danh sách các tên
+
+   // Đọc danh sách các tên từ tệp tin và lưu vào vector
+   ifstream file(fileName);
+   string name;
+   while (getline(file, name)) {
+      names.push_back(name);
+   }
+   file.close();
+
+   return names;
 }
 
 int main() {
@@ -76,6 +103,7 @@ int main() {
 
   saveIndex(&index,"meme.bin");
 
+  //check loadindex
   // Giải phóng bộ nhớ đã được cấp phát
   delete[] distances;
   delete[] labels;
@@ -93,6 +121,19 @@ int main() {
   delete[] distances2;
   delete[] labels2;
 
+  //check doc va luu file name
+  vector<string> names;
+  for (int i = 0; i < 1; i++) {
+      string name;
+      cout << "Nhập tên thứ " << i+1 << ": ";
+      getline(cin, name);
+      names.push_back(name);
+      addNameToFile(name, "list_name.txt");
+   }
+
+   vector<string> names_read = readNamesFromFile("list_name.txt");
+   cout << names_read[7] << endl;
+   cout << names_read.size() << endl;
 
   return 0;
 }
